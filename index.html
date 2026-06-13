@@ -1,1 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Revised New Syllabus Companion — Giles Goat-Boy</title>
+<meta name="description" content="An unofficial study companion that teaches John Barth's Giles Goat-Boy (1966) by re-enacting it: matriculate, complete the Assignment, descend into WESCAC's Belly, pass the Finals.">
+<style>
+  :root{
+    --paper:#f5efdf;
+    --paper-2:#ede4cc;
+    --ink:#2b2118;
+    --ink-soft:#5a4a3a;
+    --oxblood:#7a1f1f;
+    --forest:#1f4d2e;
+    --gold:#9a7b25;
+    --rule:#c9b88f;
+    --belly-bg:#04130a;
+    --belly-fg:#49f08a;
+    --belly-dim:#1d6b41;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --mono:"Courier New",Courier,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); line-height:1.55; font-size:17px;
+  }
+  .skip{position:absolute;left:-999px;top:0;background:var(--oxblood);color:#fff;padding:.5em 1em;z-index:99}
+  .skip:focus{left:0}
 
+  header.masthead{
+    border-bottom:4px double var(--oxblood);
+    background:
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(122,31,31,.04) 38px 40px),
+      var(--paper-2);
+    padding:1.1rem 1rem .9rem; text-align:center;
+  }
+  .crest-row{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+  button.crest{
+    font-size:2.4rem;line-height:1;background:var(--paper);border:3px solid var(--oxblood);
+    border-radius:50% 50% 45% 45%;width:4.2rem;height:4.2rem;cursor:pointer;
+  }
+  button.crest:hover{transform:rotate(-6deg)}
+  .masthead h1{font-variant:small-caps;letter-spacing:.12em;margin:.2rem 0 0;font-size:1.55rem;color:var(--oxblood)}
+  .masthead .sub{margin:.15rem 0 0;font-style:italic;color:var(--ink-soft)}
+  .masthead .org{margin:.35rem 0 0;font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--forest)}
+  .clock{font-family:var(--mono);font-size:.85rem;color:var(--ink-soft);margin-top:.4rem}
+  .clock b{color:var(--oxblood)}
+
+  nav.tabs{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;
+    padding:.6rem .8rem;background:var(--paper-2);border-bottom:1px solid var(--rule);
+    position:sticky;top:0;z-index:20;
+  }
+  nav.tabs button{
+    font-family:var(--serif);font-size:.95rem;padding:.45em 1em;cursor:pointer;
+    background:var(--paper);border:1px solid var(--rule);border-radius:2px;color:var(--ink);
+  }
+  nav.tabs button[aria-current="page"]{background:var(--oxblood);color:#fff;border-color:var(--oxblood)}
+  nav.tabs button.locked{opacity:.55}
+  nav.tabs button:focus-visible, .btn:focus-visible, button.crest:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+  main{max-width:46rem;margin:0 auto;padding:1.4rem 1.1rem 4rem}
+  h2{font-variant:small-caps;letter-spacing:.06em;color:var(--oxblood);border-bottom:1px solid var(--rule);padding-bottom:.2em}
+  h3{color:var(--forest);margin-top:1.6em}
+  .kicker{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:0 0 .2rem}
+  .notice{border:1px solid var(--rule);background:var(--paper-2);padding:.8rem 1rem;margin:1rem 0;border-left:5px solid var(--gold)}
+  .notice.warn{border-left-color:var(--oxblood)}
+  .smallprint{font-size:.85rem;color:var(--ink-soft)}
+  blockquote{margin:1rem 0;padding:.4rem 1.2rem;border-left:4px solid var(--forest);font-style:italic;background:var(--paper-2)}
+  details{margin:.8rem 0;border:1px solid var(--rule);padding:.5rem .9rem;background:var(--paper-2)}
+  summary{cursor:pointer;font-weight:bold;color:var(--forest)}
+  table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem}
+  th,td{border:1px solid var(--rule);padding:.45em .6em;text-align:left;vertical-align:top}
+  th{background:var(--paper-2);font-variant:small-caps;letter-spacing:.05em}
+  code{font-family:var(--mono);font-size:.9em}
+
+  .btn{
+    font-family:var(--serif);font-size:1rem;padding:.55em 1.3em;cursor:pointer;border-radius:2px;
+    background:var(--forest);color:#fff;border:1px solid var(--forest);
+  }
+  .btn.secondary{background:var(--paper);color:var(--ink);border:1px solid var(--ink-soft)}
+  .btn.danger{background:var(--oxblood);border-color:var(--oxblood)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn-row{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.2rem 0}
+
+  .module-list{list-style:none;padding:0}
+  .module-list li{
+    border:1px solid var(--rule);background:#fffdf6;margin:.5rem 0;padding:.7rem .9rem;
+    display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+  }
+  .module-list .num{
+    font-family:var(--mono);font-weight:bold;color:#fff;background:var(--forest);
+    width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .module-list li.signed .num{background:var(--gold)}
+  .module-list .grow{flex:1;min-width:12rem}
+  .stamp{color:var(--forest);font-weight:bold;white-space:nowrap}
+
+  fieldset.quiz{border:2px solid var(--forest);background:#fffdf6;padding:1rem;margin:1.5rem 0}
+  fieldset.quiz legend{font-variant:small-caps;color:var(--forest);font-weight:bold;padding:0 .5em}
+  .quiz label{display:block;padding:.35em .2em;cursor:pointer}
+  .quiz .verdict{margin-top:.6rem;font-weight:bold}
+  .quiz .verdict.pass{color:var(--forest)}
+  .quiz .verdict.flunk{color:var(--oxblood)}
+  .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.8rem 0}
+  .chips span{font-size:.8rem;border:1px solid var(--rule);background:var(--paper-2);padding:.15em .6em;border-radius:1em}
+
+  /* ID card */
+  #idcard{
+    position:fixed;right:0;top:6.5rem;width:19rem;max-width:92vw;z-index:30;
+    background:#fffdf6;border:2px solid var(--ink);border-right:none;border-radius:6px 0 0 6px;
+    box-shadow:-4px 4px 0 rgba(43,33,24,.2);
+    transform:translateX(calc(100% - 2.4rem));transition:transform .25s;
+  }
+  @media (prefers-reduced-motion: reduce){ #idcard{transition:none} }
+  #idcard.open{transform:translateX(0)}
+  #idcard .tab{
+    position:absolute;left:0;top:0;bottom:0;width:2.4rem;border:none;cursor:pointer;
+    background:var(--oxblood);color:#fff;writing-mode:vertical-rl;text-orientation:mixed;
+    font-family:var(--serif);font-size:.85rem;letter-spacing:.15em;border-radius:6px 0 0 6px;
+  }
+  #idcard .body{margin-left:2.4rem;padding:.8rem .9rem;font-size:.85rem}
+  #idcard h2{font-size:1rem;margin:.1rem 0 .4rem;border:none}
+  #idcard input{width:100%;font-family:var(--serif);font-size:.95rem;padding:.25em .4em;border:1px solid var(--rule);background:var(--paper)}
+  #idcard ol{margin:.5rem 0;padding-left:1.4rem}
+  #idcard li{margin:.15rem 0}
+  #idcard li.signed{color:var(--forest);font-weight:bold}
+  #idcard .bigstamp{border:2px solid var(--forest);color:var(--forest);display:inline-block;padding:.1em .5em;transform:rotate(-4deg);font-variant:small-caps;margin-top:.4rem}
+
+  /* Belly mode */
+  body.belly{background:var(--belly-bg);color:var(--belly-fg);font-family:var(--mono)}
+  body.belly header.masthead, body.belly nav.tabs, body.belly #idcard, body.belly footer{display:none}
+  body.belly main{max-width:44rem}
+  .belly-screen{white-space:pre-wrap;font-family:var(--mono);font-size:1rem;min-height:8rem}
+  .belly-screen .dim{color:var(--belly-dim)}
+  body.belly .btn{
+    background:transparent;color:var(--belly-fg);border:2px solid var(--belly-fg);
+    font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;
+  }
+  body.belly .btn[aria-pressed="true"]{background:var(--belly-fg);color:var(--belly-bg)}
+  body.belly .quizopt{display:block;margin:.3rem 0;text-align:left;width:100%}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(20,12,6,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:1rem}
+  .modal{
+    background:var(--paper);max-width:38rem;max-height:88vh;overflow:auto;
+    border:3px double var(--oxblood);padding:1.4rem 1.6rem;box-shadow:0 10px 30px rgba(0,0,0,.4);
+  }
+  .modal h2{margin-top:0}
+  .editor-report{margin:.7rem 0;padding-left:1rem;border-left:3px solid var(--rule)}
+  .editor-report b{font-variant:small-caps}
+
+  /* Certificate */
+  .certificate{
+    border:6px double var(--gold);background:#fffdf2;padding:2rem 1.6rem;text-align:center;margin:1.5rem 0;
+  }
+  .certificate h3{font-variant:small-caps;letter-spacing:.2em;color:var(--oxblood);margin-top:0;font-size:1.3rem}
+  .certificate .name{font-size:1.5rem;font-style:italic;border-bottom:1px solid var(--ink);display:inline-block;padding:0 1.5em .1em}
+  .certificate .passfail{font-family:var(--mono);font-weight:bold;letter-spacing:.3em;color:var(--forest);margin:1rem 0}
+  .certificate .sigs{display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem;margin-top:1.6rem;font-size:.9rem}
+  .certificate .sig{border-top:1px solid var(--ink);padding:0 1em;font-style:italic}
+
+  #toast{
+    position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);z-index:60;
+    background:var(--ink);color:var(--paper);padding:.6em 1.1em;border-radius:3px;font-size:.92rem;
+    max-width:90vw;opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  #toast.show{opacity:1}
+  @media (prefers-reduced-motion: reduce){ #toast{transition:none} }
+
+  footer{
+    border-top:4px double var(--oxblood);background:var(--paper-2);
+    padding:1rem;text-align:center;font-size:.82rem;color:var(--ink-soft);
+  }
+  footer a{color:var(--oxblood)}
+
+  @media print{
+    body *{visibility:hidden}
+    .certificate, .certificate *{visibility:visible}
+    .certificate{position:absolute;left:0;top:0;width:100%;border-width:8px}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="crest-row">
+    <button class="crest" id="crest" title="The College crest. (Click it. Goats like attention.)" aria-label="College crest: a goat. Click to bleat.">🐐</button>
+    <div>
+      <p class="org">New Tammany College · Office of the Grand Tutor</p>
+      <h1>The Revised New Syllabus Companion</h1>
+      <p class="sub">Being an Electronic Study-Aid to <cite>Giles Goat-Boy; or, The Revised New Syllabus</cite> (John Barth, 1966), Prepared and Read Out by WESCAC for the Instruction of Studentdom</p>
+    </div>
+  </div>
+  <p class="clock">Tower Hall time: <b id="tick">TICK</b> <span id="motto" aria-live="off"></span></p>
+</header>
+
+<nav class="tabs" aria-label="Campus navigation" id="tabs"></nav>
+
+<main id="main" tabindex="-1"></main>
+
+<aside id="idcard" aria-label="Your ID card">
+  <button class="tab" id="idcard-toggle" aria-expanded="false">ID-CARD</button>
+  <div class="body">
+    <h2>New Tammany College · ID-Card</h2>
+    <label for="student-name" class="smallprint">Name of Candidate</label>
+    <input id="student-name" maxlength="40" autocomplete="off">
+    <p class="smallprint" style="margin:.5rem 0 .2rem">Assignment items signed:</p>
+    <ol id="idcard-items"></ol>
+    <div id="idcard-stamp"></div>
+  </div>
+</aside>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="modal-root"></div>
+
+<footer>
+  <p><strong>An unofficial study companion.</strong> Not affiliated with the Barth estate or any publisher. It reproduces no passages from the novel beyond a few phrase-length titles and mottoes, discussed under fair use; all lesson prose is original. The novel itself is in copyright — buy it, borrow it, read it.</p>
+  <p>Built from standard scholarship and a long memory; for errata, petition the Sub-Archivist via the <a href="https://github.com/editor-beep/giles-goat-boy">repository</a>. App code is CC0.</p>
+</footer>
+
+<script>
+"use strict";
+
+/* ------------------------------------------------------------------ */
+/* State                                                               */
+/* ------------------------------------------------------------------ */
+const STORE_KEY = "rns-companion-v1";
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const defaultState = {
+  matriculated: false,
+  name: "",
+  signed: [false,false,false,false,false,false,false],
+  finalsPassed: false,
+  idPresented: false,
+  bleats: 0,
+  brayShown: []
+};
+let state = loadState();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return {...defaultState};
+    return {...defaultState, ...JSON.parse(raw)};
+  }catch(e){ return {...defaultState}; }
+}
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+function signedCount(){ return state.signed.filter(Boolean).length; }
+function allSigned(){ return signedCount() === 7; }
+function studentName(){ return state.name.trim() || "Candidate Bocksfuss"; }
+
+/* ------------------------------------------------------------------ */
+/* Content: the seven Assignment modules                               */
+/* ------------------------------------------------------------------ */
+const MODULES = [
+{
+  title: "Fix the Clock",
+  subtitle: "How the book is built — frames, tapes, and tick that is tock",
+  meaning: "On the Goat-Boy's Assignment, the first item seems to be a chore for a repairman in Tower Hall. It turns out to be a question about time, and about what holds a structure together.",
+  lesson: `
+    <p><cite>Giles Goat-Boy</cite> never lets you reach the story directly. You enter through a
+    <strong>Publisher's Disclaimer</strong>, in which anonymous editors file contradictory reports on whether
+    the book should exist at all. Then comes a <strong>Cover-Letter to the Editors and Publisher</strong>,
+    signed "J.B.," a blocked novelist who explains that the manuscript isn't his: a strange young man —
+    calling himself <strong>Stoker Giles, or Giles Stoker</strong> — left him tapes said to have been composed by
+    <strong>WESCAC</strong>, the West Campus Automatic Computer. The body of the novel is presented as those tapes,
+    the <strong>Revised New Syllabus</strong>: the testament of George the Goat-Boy, divided into two volumes whose
+    chapters are "reels," as befits tape. And when the story ends, the frames resume: a <strong>Posttape</strong>,
+    then a <strong>Postscript</strong> doubting the Posttape's authenticity, then a <strong>footnote</strong> doubting the
+    Postscript. Authorship recedes forever; no layer of the book vouches for any other.</p>
+    <p>This is <strong>metafiction</strong> — fiction that exhibits its own scaffolding — and in 1966 a novel claiming
+    to have been written by a computer was a genuinely strange machine to find on a bestseller list. It was
+    Barth's fourth novel, after <cite>The Floating Opera</cite>, <cite>The End of the Road</cite>, and
+    <cite>The Sot-Weed Factor</cite>, and the ideas it acts out — that the old narrative forms are used up
+    and can only be retold with a knowing wink — became his famous essay "The Literature of Exhaustion" (1967).</p>
+    <p>As for the clock: George's first, literal-minded campaign includes adjusting the great clock in Tower Hall,
+    whose escapement divides time into tick and tock. His education runs the other way — toward hearing that the
+    dividing is something we do, not something time does. The Assignment's own heading makes the point at once:
+    everything on the list is <em>"to be done at once, in no time."</em> Hold that paradox; it is the whole course.</p>
+  `,
+  refs: ["Publisher's Disclaimer","Cover-Letter","Stoker Giles","WESCAC","Posttape","R.N.S."],
+  quiz: {
+    q: "Which layer of the book casts doubt on the Posttape?",
+    options: [
+      "The Postscript to the Posttape",
+      "The Publisher's Disclaimer",
+      "The Second Reel",
+      "Nothing — the Posttape is the one undisputed text"
+    ],
+    answer: 0,
+    explain: "The Postscript disputes the Posttape — and is itself disputed by a footnote. Every frame is sabotaged by the next. The book's last lesson in authority is structural, not stated."
+  }
+},
+{
+  title: "End the Boundary Dispute",
+  subtitle: "The allegory map — the Cold War as a campus quarrel",
+  meaning: "Item two looks like diplomacy: settle the line between East and West Campus. George will try drawing the line harder, then erasing it, before learning what lines are for.",
+  lesson: `
+    <p>The novel's master conceit: <strong>the University is the universe.</strong> Read every campus noun as a cosmic or
+    geopolitical one and the twentieth century assembles itself. <strong>New Tammany College</strong> is the United
+    States (rich, generous, self-righteous, machine-proud); <strong>Nikolayan College</strong>, on East Campus, is the
+    Soviet bloc. <strong>Campus Riot II</strong> is the Second World War, in which the <strong>Bonifacists</strong> of
+    <strong>Siegfrieder College</strong> (the Nazis) perpetrated horrors against the <strong>Moishians</strong> (the Jews).
+    The war ended when WESCAC turned its <strong>EAT-waves</strong> — mind-destroying broadcasts; the campus idiom for
+    nuclear arms — on two campuses of <strong>Amaterasu College</strong> (Japan). Now NTC and Nikolay glare at each other
+    through the <strong>Quiet Riot</strong> (the Cold War), each tending a rival computer, WESCAC and EASCAC, either of
+    which could EAT all studentdom in an afternoon.</p>
+    <p>The political cast is a roman-à-clef done in crayon: Chancellor <strong>Lucius "Lucky" Rexford</strong>, young,
+    golden, and photogenic, is a Kennedy figure; ex-Chancellor <strong>Reginald Hector</strong>, the general emeritus, has
+    a strong Eisenhower flavor; <strong>Ira Hector</strong>, who owns nearly all information on West Campus, is monopoly
+    capital wearing a green eyeshade. The <strong>Boundary Dispute</strong> itself — where exactly West Campus ends and
+    East begins — is the era's border theology, Berlin included.</p>
+    <p>The teaching point is not the cipher but its <em>excess</em>. Allegory promises a tidy key; Barth supplies one so
+    complete it tips into farce — when a footnoted history of the world can be reconstructed from a course catalogue,
+    the act of mapping is the joke. The Boundary Dispute can't be "ended" by moving the line, because the line is in
+    the mappers. George must learn — twice, the hard way — that boundaries are both arbitrary <em>and</em> necessary.</p>
+  `,
+  refs: ["New Tammany College","Nikolayan College","Bonifacists","Moishians","Amaterasu College","EAT","Quiet Riot","Lucky Rexford"],
+  quiz: {
+    q: "In the allegory, the EATing of two Amaterasu campuses corresponds to —",
+    options: [
+      "The bombing of Hiroshima and Nagasaki",
+      "The Berlin airlift",
+      "The 1929 stock-market crash",
+      "The moon landing"
+    ],
+    answer: 0,
+    explain: "EAT-waves are the campus idiom for nuclear (and mind-) weaponry; WESCAC's strike on Amaterasu College ends Campus Riot II as the atomic bombings ended WWII — the guilt of it haunts West Campus, and Max, all novel long."
+  }
+},
+{
+  title: "Overcome Your Infirmity",
+  subtitle: "From Billy Bocksfuss to George Giles — a hero assembled from the manual",
+  meaning: "George reads item three as a doctor's order: cure the limp, purge the goat. The course of the novel suggests the infirmity and the gift may be the same organ.",
+  lesson: `
+    <p>The hero is raised in the goat-barns of New Tammany's experimental farms as <strong>Billy Bocksfuss</strong>, a kid
+    among kids, by <strong>Max Spielman</strong> — the great Moishian scientist who helped teach WESCAC to EAT, was
+    scapegoated for his conscience, and now keeps goats. (Max's life-work is a comic cosmology summed up in
+    <strong>Spielman's Law: ontogeny recapitulates cosmogeny</strong> — each of us re-runs the whole show in miniature.)
+    The boy's pastoral happiness cracks in stages: visits from a gentle stranger he calls <strong>Lady Creamhair</strong>;
+    the death of his beloved buck <strong>Redfearn's Tommy</strong>, for which he cannot forgive himself; the dawning,
+    intolerable knowledge that he is human. He claims his manhood, his name — George — and a destiny: WESCAC's
+    eugenics project, the <strong>GILES</strong> (<em>Grand-Tutorial Ideal, Laboratory Eugenical Specimen</em>), means his
+    paternity may be the computer itself, and Lady Creamhair is closer kin than he knows. So the goat-boy sets out
+    for the Great Mall to matriculate, passes the <strong>Trial-by-Turnstile</strong> and the punning
+    <strong>Scrapegoat Grate</strong>, and declares himself candidate for <strong>Grand Tutor</strong> — campus-speak for
+    messiah — just as a rival, Harold Bray, declares the same.</p>
+    <p>None of this pattern is accidental. Barth built George against the comparative-myth recipe — Lord Raglan's
+    <cite>The Hero</cite> and Joseph Campbell's <cite>The Hero with a Thousand Faces</cite> — and checked the boxes
+    deliberately: obscure and possibly divine parentage, the attempt on the child's life, fosterage among animals,
+    the journey to the capital, trials, revelation, apotheosis, and (book the hero's late chapters) rejection by the
+    very flock he saves. <cite>Giles</cite> is a hero <em>synthesized from the spec</em> — which is the satire: if the
+    messiah pattern is a formula, a computer could run it. One did; you're reading the printout.</p>
+    <p>And the infirmity? George walks with a goatish gait and carries a goatish appetite, and his tutors variously
+    advise amputating the animal or sainting it. The novel's long answer is that his goathood — body, smell, gusto,
+    shame — is not the obstacle to his humanity but its evidence; what must be overcome is the belief that he is
+    divisible.</p>
+  `,
+  refs: ["Billy Bocksfuss","Max Spielman","Spielman's Law","Lady Creamhair","Redfearn's Tommy","GILES","Trial-by-Turnstile","Scrapegoat Grate","Grand Tutor"],
+  quiz: {
+    q: "GILES, the program that may explain George's paternity, stands for —",
+    options: [
+      "Grand-Tutorial Ideal, Laboratory Eugenical Specimen",
+      "General Instruction & Learning Examination System",
+      "Goat-Initiated Liberal Education Scheme",
+      "Graduate Institute for Eastern Studies"
+    ],
+    answer: 0,
+    explain: "WESCAC's GILES project sought to engineer the perfect Grand Tutor from optimal donor material. A messiah bred from a spec sheet: the novel's whole argument about heroism, in one acronym."
+  }
+},
+{
+  title: "See Through Your Ladyship",
+  subtitle: "The cast as a set of halves — every character is someone's missing piece",
+  meaning: "George first hears item four as optics, then as cynicism — to see through someone is to expose them. Seeing through, it turns out, can also mean seeing by means of.",
+  lesson: `
+    <p>Barth populates the campus with people who are each <em>half</em> of something, so that the plot can keep asking
+    its one question: what would wholeness cost?</p>
+    <ul>
+      <li><strong>Dr. Eblis Eierkopf and Croaker.</strong> The Bonifacist scientist is nearly all skull — bodiless
+      intellect, peering at the co-eds through his night-glass; the giant Frumentian exchange student is nearly all
+      body. Eierkopf rides Croaker's shoulders, and together they make approximately one person. (Croaker is also the
+      novel's sorest spot for modern readers — see the advisory in Module 7.)</li>
+      <li><strong>Peter Greene and Leonid Alexandrov.</strong> The West's self-made booster, blind in one eye and
+      relentlessly "okay," mirrors the East's defector, selfless to the point of self-erasure. Each is his college's
+      virtue swollen into its defect; they spend the novel trading flaws like roommates trading shirts.</li>
+      <li><strong>Maurice Stoker and Lucky Rexford.</strong> The Chancellor's radiant order runs on power from the
+      Furnace Room of <strong>Maurice Stoker</strong> — grinning keeper of the Powerhouse and Main Detention, rumored the
+      Chancellor's dark kin, the novel's Dean-o'-Flunks-in-residence. Heaven's lights are wired to hell's boiler,
+      and Stoker never lets anyone forget it.</li>
+      <li><strong>Anastasia Stoker.</strong> Stoker's wife, attached to the Psychiatric Annex, is the novel's scandal
+      and its saint: she refuses no one anything. Is bottomless giving holiness or pathology? George's successive
+      doctrines (Module 6) will swing her like a pendulum, and his Ladyship-assignment finally points here: not to
+      expose her, but to see <em>by</em> her.</li>
+      <li><strong>Harold Bray.</strong> The rival Grand Tutor: oily, omnicompetent, faintly inhuman, and impossible to
+      pin. Bray will Certify anyone as a Candidate — his diplomas bloom across campus like dandelions — and George's
+      vocation crystallizes as the duty to <em>unmask the false Tutor</em>. The catch: everything George does, Bray
+      does too, smoother. A messiah and his counterfeit are a binary system; neither shines without the other's dark.</li>
+    </ul>
+    <p>Watching the pairs teaches you to read the book's deep grammar: <cite>Giles</cite> is a machine for generating
+    opposites — East/West, mind/body, give/refuse, pass/fail — and then asking which oppositions are real. Keep the
+    roster handy; the Finals will assume it.</p>
+  `,
+  refs: ["Eblis Eierkopf","Croaker","Peter Greene","Leonid Alexandrov","Maurice Stoker","Anastasia","Harold Bray","Dean o' Flunks"],
+  quiz: {
+    q: "Eierkopf and Croaker function in the novel as —",
+    options: [
+      "Mind and body, helpless apart, comically whole together",
+      "Twin spies for EASCAC",
+      "George's biological fathers",
+      "The two authors of the Publisher's Disclaimer"
+    ],
+    answer: 0,
+    explain: "The egghead rides the giant: intellect without appetite carried by appetite without intellect. It's the novel's mind–body problem staged as a piggyback ride — and a hint of what George must refuse to split in himself."
+  }
+},
+{
+  title: "Re-place the Founder's Scroll",
+  subtitle: "Sources and parodies — scripture, Oedipus, and the syllabus of syllabi",
+  meaning: "George takes item five as shelving: return a document to its slot in the Library. But 're-place' also means 'find the right place for' — and perhaps 'replace.' Wherever the original goes, a revision is coming.",
+  lesson: `
+    <p>The Revised New Syllabus announces by its very title that it means to stand on the shelf beside — or atop —
+    the <strong>Old and New Syllabi</strong>, the campus Testaments. The novel's sacred history is a full conversion of
+    ours: the <strong>Founder</strong> presides where God did; the <strong>Dean o' Flunks</strong> tempts where Satan did;
+    <strong>Moishe</strong> led the Moishians; <strong>Enos Enoch</strong>, the campus Christ, taught that the meek shall
+    graduate; the <strong>Living Sakhyan</strong> sits smiling on West Campus, serenely declining to answer questions,
+    as the Buddha-figure must. Graduation is salvation; <strong>Commencement Gate</strong> is the pearly one; to flunk
+    is to be damned, and "Flunk you!" is how studentdom swears. George's career re-runs the messiah's — annunciations,
+    temptations, a ragged ministry, betrayals, a scapegoat's exit — with the difference that his gospel is being
+    typed by the very machine he is sent to harrow.</p>
+    <p>Mid-novel, Barth stops the plot to stage an entire play: <strong><cite>The Tragedy of Taliped Decanus</cite></strong>
+    — "Taliped" as in clubfooted, "Decanus" as in dean — a campus-idiom travesty of <cite>Oedipus Rex</cite>, performed
+    in the Amphitheatre while George watches. It is a parody with teeth: George, too, is a foundling of riddling
+    parentage with a damaged gait, a weakness for oracles (WESCAC's readouts), and a mother he has met without
+    knowing her. The play is his story held up in a warped mirror, and the audience laughs at what will shortly
+    not be funny.</p>
+    <p>The module's question is the difference between <strong>parody and blasphemy</strong>. Barth's method is the
+    medieval one of sacred parody: you can only travesty at full length what you have taken seriously at full length.
+    The Founder's Scroll gets <em>re-placed</em>, not burned. The old stories aren't refuted — they are retold knowingly,
+    which (per "The Literature of Exhaustion") is the only mode left. The R.N.S. is what scripture looks like after
+    it has read its own reviews.</p>
+  `,
+  refs: ["Founder","Dean o' Flunks","Enos Enoch","Living Sakhyan","Old & New Syllabi","Taliped Decanus","Founder's Scroll","Commencement"],
+  quiz: {
+    q: "The Tragedy of Taliped Decanus, performed inside the novel, is a campus-dress rewrite of —",
+    options: [
+      "Sophocles' Oedipus Rex",
+      "Hamlet",
+      "Paradise Lost",
+      "The Book of Job"
+    ],
+    answer: 0,
+    explain: "A clubfooted dean, a plague, a riddle, an unspeakable marriage: Oedipus in academic regalia. Its placement is the point — George watches his own myth performed as farce before he must live it as fact."
+  }
+},
+{
+  title: "Pass the Finals",
+  subtitle: "The three answers — differentiate, embrace, transcend",
+  meaning: "Item six sounds simplest and is the abyss: what could it mean to pass an examination set by the universe? George will answer three times. The grader is a machine; the grade is a koan.",
+  lesson: `
+    <p>Over George riddles the oracle attached to the GILES from the start, WESCAC's gnomic readout:
+    <strong>"Pass All Fail All."</strong> The novel's second half is the systematic attempt to obey it, and Barth
+    organizes the attempts as a dialectic. George works through his seven-item Assignment not once but three times,
+    each pass governed by a doctrine, each doctrine tested to destruction on the same set of advisees:</p>
+    <ul>
+      <li><strong>First answer — differentiation.</strong> Passage and Failure are opposites; salvation lies in telling
+      things apart and keeping them apart. George counsels purity all round: harden the Boundary, refuse the
+      ambiguous, separate goat from man, East from West, wife from supplicants. Campus affairs promptly curdle —
+      borders bristle, lovers freeze, the righteous become monsters of righteousness.</li>
+      <li><strong>Second answer — embrace.</strong> Reversal: Passage and Failure are one; all distinction is illusion,
+      so merge everything. Walls soften, appetites are sainted, contradictions are waved through. The result is not
+      paradise but mush and license; the campus curdles in the opposite direction. (Note the comedy of method:
+      George is a literalist of whatever idea currently possesses him. Both halves of the dialectic are tested by a
+      tutor constitutionally incapable of moderation — that is, a satirist's dream student.)</li>
+      <li><strong>Third answer — the unsayable synthesis.</strong> What remains when both doctrines have failed is not a
+      third doctrine. In the deepest chamber of the campus — the <strong>Belly of WESCAC</strong>, where Candidates face
+      the Finals and the machine's yes-or-no interrogation — George stops choosing between the buttons. In darkness,
+      in embrace with Anastasia, question and answer, pass and fail, briefly cease to be two things. The novel is
+      careful to keep this moment beyond paraphrase: it can be enacted but not stated, and every later attempt to
+      state it (his own included) garbles it. Boundaries are tools; love is not a position; the truth does not fit
+      in the machine that asks for it.</li>
+    </ul>
+    <p>This three-beat shape — thesis, antithesis, and a synthesis that refuses to be a slogan — is the skeleton key
+    to the whole middle of the book. Any scene that seems redundant is usually the same scene under a different
+    doctrine; Barth is running controlled experiments on his cast. When your own Finals arrive (and they will,
+    Candidate, the moment all seven items are signed), remember what the third answer was <em>not</em>: it was not
+    either button.</p>
+  `,
+  refs: ["Pass All Fail All","WESCAC's Belly","the Finals","Anastasia","Boundary Dispute"],
+  quiz: {
+    q: "The correct order of George's three successive teachings:",
+    options: [
+      "Differentiate everything → embrace everything → transcend the opposition",
+      "Embrace everything → differentiate everything → flunk everything",
+      "Transcend first, then differentiate, then embrace",
+      "He teaches one doctrine, consistently, throughout"
+    ],
+    answer: 0,
+    explain: "Thesis: pass ≠ fail, so separate. Antithesis: pass = fail, so merge. Both wreck the campus. The synthesis happens in the Belly and resists wording — which is why the novel dramatizes it instead of stating it."
+  }
+},
+{
+  title: "Present Your ID-Card, Appropriately Signed, to the Proper Authority",
+  subtitle: "Endings, authority, and reading this book in the present tense",
+  meaning: "The last item is a bureaucratic formality — except that by the end, every term in it has come loose. Which signature is appropriate? And who, in this University, is the proper authority?",
+  lesson: `
+    <p>The novel does not end so much as out-frame itself. The <strong>Posttape</strong> finds the Tutor years on, weary,
+    his teaching hardened by disciples into an "-ism" he barely recognizes, expecting the fate the hero-pattern
+    reserves for its late chapters: the scapegoat's exit, on Founder's Hill, where the campus sends what it cannot
+    forgive. (George, who began as a goat among goats, has always known what studentdom does with its sins: it finds
+    a goat.) Then the <strong>Postscript</strong> doubts the Posttape was George's at all; the <strong>footnote</strong> doubts
+    the Postscript; and the reader is left holding an ID-card no authority remains to stamp. That is the answer to
+    item seven, and the book's final transfer of power: <em>you</em> are the proper authority, and the signature that
+    makes the card valid is the reading you just did. The R.N.S. ends by graduating its reader, with honors and
+    without guarantees.</p>
+    <h3>Reading it today — an honest advisory</h3>
+    <p>A companion that only flattered the novel would be a Bray. Two cautions, offered seriously:
+    <strong>Croaker</strong> is built from racist primitivist caricature — a wordless, hypersexual African giant — and
+    while the mind/body allegory is doing deliberate work, the vehicle is the era's ugliest stock figure, and modern
+    readers should say so plainly. And the novel's sexual politics, above all the perpetual availability and
+    repeated violation of <strong>Anastasia</strong>, treats women chiefly as parable material; the book is knowing about
+    many of its cruelties, but not reliably about these. Reading critically is not flunking the book; it is the
+    only way left to pass it.</p>
+    <h3>Reception, briefly</h3>
+    <p>Published in 1966, <cite>Giles Goat-Boy</cite> became a genuine bestseller — a strange fate for 700-plus pages
+    of cybernetic scripture — and split critics between "comic masterpiece" and "bloated stunt" (positions, you will
+    notice, the Publisher's Disclaimer had already staged as a preemptive parody). It stands now as a hinge of
+    American postmodernism: the campus novel swallowed by the systems novel, the sacred book rebuilt as a machine
+    readout, the hero generated from the hero-manual. Its descendants — enormous, paranoid, encyclopedic — are still
+    being written.</p>
+    <details>
+      <summary>Further reading (the unrequired list)</summary>
+      <ul>
+        <li>John Barth, "The Literature of Exhaustion" (1967; collected in <cite>The Friday Book</cite>)</li>
+        <li>Robert Scholes, <cite>The Fabulators</cite> (1967)</li>
+        <li>Lord Raglan, <cite>The Hero</cite>; Joseph Campbell, <cite>The Hero with a Thousand Faces</cite> — the manuals George was built from</li>
+        <li>Sophocles, <cite>Oedipus Rex</cite> — read it, then reread Taliped</li>
+        <li>And the novel itself, twice: once for the joke, once for the grief</li>
+      </ul>
+    </details>
+  `,
+  refs: ["Posttape","Founder's Hill","Gilesianism","Croaker","Anastasia","ID-card"],
+  quiz: {
+    q: "By the final page, the question 'who really wrote this book?' has —",
+    options: [
+      "At least five candidate answers, every one of them disputed by some part of the book itself",
+      "Exactly one: John Barth, stated plainly in the Posttape",
+      "Two: George and Anastasia, co-signing",
+      "None: the text is legally anonymous"
+    ],
+    answer: 0,
+    explain: "George dictating, WESCAC composing, Stoker Giles delivering, J.B. forwarding, editors mangling — and each frame impeaches its neighbor. The reader inherits the authority no layer will keep. That inheritance is the ending."
+  }
+}
+];
+
+/* ------------------------------------------------------------------ */
+/* Content: the Catalogue (glossary)                                   */
+/* ------------------------------------------------------------------ */
+const CATALOGUE = [
+  ["The University","All that is — the cosmos as campus","the universe (hear the pun)"],
+  ["Studentdom","Everyone enrolled in existence","humankind"],
+  ["The Founder","Source of the campus, author of the Old Syllabus","God"],
+  ["The Dean o' Flunks","Tempter who haunts failure's edge","the Devil"],
+  ["Grand Tutor","A teacher whose life is the lesson","messiah / prophet"],
+  ["Commencement","The passage beyond the campus","salvation"],
+  ["The Finals","The examination that settles everything","last judgment"],
+  ["Passage / Failure","The campus's terminal grades","salvation / damnation"],
+  ["Matriculation","Enrollment in the whole business","birth; conversion; signing up"],
+  ["New Tammany College (NTC)","Richest college on West Campus","the United States"],
+  ["West & East Campus","The two rival halves of the University","the Cold War blocs"],
+  ["Nikolayan College","NTC's great rival on East Campus","the Soviet Union"],
+  ["Siegfrieder College","Perpetrators of Campus Riot II's horrors","Germany"],
+  ["Bonifacists","Siegfrieder's murderous faction","the Nazis"],
+  ["Moishians","The persecuted people of Moishe","the Jews"],
+  ["Amaterasu College","EATen at the end of Campus Riot II","Japan"],
+  ["Campus Riot II","The great mid-century catastrophe","World War II"],
+  ["The Quiet Riot","Armed peace between the Campuses","the Cold War"],
+  ["The Boundary Dispute","Where does West Campus end?","border & ideology conflict"],
+  ["WESCAC / EASCAC","The rival automatic computers, each able to EAT studentdom","superpower military-computer complexes"],
+  ["EAT-waves","Mind-destroying emissions; 'EATen alive'","nuclear weapons (and worse)"],
+  ["The Belly","WESCAC's innermost chamber, where Candidates are examined","holy of holies; the bomb's heart; the oracle's cave"],
+  ["The GILES","Grand-Tutorial Ideal, Laboratory Eugenical Specimen","an engineered messiah"],
+  ["Billy Bocksfuss","The goat-boy's barn name","George's first self"],
+  ["Max Spielman","Moishian scientist turned goatherd; George's first tutor","the scapegoated sage"],
+  ["Spielman's Law","'Ontogeny recapitulates cosmogeny'","each life re-runs the cosmos"],
+  ["G. Herrold","The booksweep who fished the infant from the tapelift","the humble rescuer of foundlings"],
+  ["Lady Creamhair","The veiled gentlewoman of the hemlock grove","closer kin than Billy knows"],
+  ["Redfearn's Tommy","George's beloved buck, dead by George's own fury","first guilt; lost Eden"],
+  ["The Great Mall","Ceremonial heart of New Tammany","the capital; the public square"],
+  ["Tower Hall","Seat of administration; the great clock","church-and-state's clocktower"],
+  ["Trial-by-Turnstile","The gate ordeal of would-be matriculates","the threshold trial"],
+  ["Scrapegoat Grate","The narrow way beside the Turnstile","the pun is the meaning"],
+  ["The Amphitheatre","Where Taliped Decanus is staged","the Theatre of Dionysus, relocated"],
+  ["Taliped Decanus","The clubfoot Dean of Cadmus College","Oedipus, in regalia"],
+  ["The Powerhouse","Stoker's furnace, lighting the whole campus","hell, on which heaven runs"],
+  ["Main Detention","Stoker's other facility","jail; the underworld annex"],
+  ["Founder's Hill","Where the campus disposes of what it can't forgive","Golgotha; the scapegoat's cliff"],
+  ["The Shaft","What happens on Founder's Hill","the cross; the gallows; 'getting shafted'"],
+  ["The Library","All recorded studentdom; home of the Founder's Scroll","Alexandria, Vatican & Library of Congress at once"],
+  ["The Founder's Scroll","The foundational document, mis-shelved","scripture, awaiting re-placement"],
+  ["Enos Enoch","The campus's gentle Tutor of old","Christ"],
+  ["Moishe","Leader and lawgiver of the Moishians","Moses"],
+  ["The Living Sakhyan","Smiling, silent, unhelpful, holy","the Buddha"],
+  ["Harold Bray","The other Grand Tutor; Certifier of absolutely everyone","Antichrist? Impostor? Necessary counterfeit?"],
+  ["Certification","Bray's freely dispensed diplomas of Candidacy","cheap grace"],
+  ["Pass All Fail All","WESCAC's oracle concerning the GILES","the koan the whole plot chews"],
+  ["ID-card","Proof of person, wanting the appropriate signature","the self, awaiting validation"],
+  ["Gilesianism","What disciples made of George's teaching","every founder's heartbreak"],
+  ["The R.N.S.","The Revised New Syllabus: this testament itself","the third Testament, on tape"],
+  ["'Flunk you!'","How studentdom swears","profanity, fully converted"],
+  ["The Posttape","The weary coda, authenticity disputed","the gospel nobody will vouch for"]
+];
+
+/* ------------------------------------------------------------------ */
+/* Content: the Finals                                                 */
+/* ------------------------------------------------------------------ */
+const FINALS = [
+  { q:"WHO TUTORED THE GOAT-BOY IN THE BARNS, AND IN FORGIVENESS?",
+    options:["MAX SPIELMAN","HAROLD BRAY","IRA HECTOR","THE LIVING SAKHYAN"], answer:0 },
+  { q:"THE UNIVERSITY SIGNIFIES —",
+    options:["THE UNIVERSE, ENTIRE","THE IVY LEAGUE","A TAX SHELTER","NOTHING: IT IS ONLY A SCHOOL"], answer:0 },
+  { q:"CAMPUS RIOT II ENDED WHEN WESCAC —",
+    options:["EATED TWO CAMPUSES OF AMATERASU COLLEGE","GRADUATED THE BONIFACISTS","FLOODED THE POWERHOUSE","WROTE A STRONGLY WORDED MEMO"], answer:0 },
+  { q:"HAROLD BRAY WILL CERTIFY —",
+    options:["ANYONE WHATEVER, INDISCRIMINATELY","ONLY THE WORTHY","ONLY GOATS","NO ONE: HE IS A MODEST MAN"], answer:0 },
+  { q:"TALIPED DECANUS, STAGED IN THE AMPHITHEATRE, TRAVESTIES —",
+    options:["OEDIPUS REX","ANTIGONE","THE TEMPEST","BEOWULF"], answer:0 },
+  { q:"GEORGE'S THREE TEACHINGS, IN ORDER —",
+    options:["DIFFERENTIATE; EMBRACE; TRANSCEND","EMBRACE; DIFFERENTIATE; SURRENDER","TRANSCEND; TRANSCEND; TRANSCEND","BUY LOW; SELL HIGH; FLUNK ALL"], answer:0 },
+  { q:"THE POSTTAPE IS DOUBTED BY THE POSTSCRIPT, WHICH IS DOUBTED BY —",
+    options:["A FOOTNOTE","THE FOUNDER","NO ONE","EDITOR B, ALONE"], answer:0 }
+];
+
+const MOTTOES = [
+  "“The Syllabus is not the Tutor.”",
+  "“To be done at once, in no time.”",
+  "“The tock is silent.”",
+  "“Boundaries are tools, not truths.”",
+  "“Beware the Tutor who certifies cheaply.”",
+  "“Ontogeny recapitulates cosmogeny.”",
+  "“Read it twice: once for the joke, once for the grief.”"
+];
+
+/* ------------------------------------------------------------------ */
+/* Tiny UI helpers                                                     */
+/* ------------------------------------------------------------------ */
+const $ = sel => document.querySelector(sel);
+function el(html){ const t=document.createElement("template"); t.innerHTML=html.trim(); return t.content.firstElementChild; }
+let toastTimer=null;
+function toast(msg, ms=3500){
+  const t=$("#toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"), ms);
+}
+function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function shuffled(n){
+  const order=[...Array(n).keys()];
+  for(let i=n-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  return order;
+}
+
+/* ------------------------------------------------------------------ */
+/* Modal                                                               */
+/* ------------------------------------------------------------------ */
+function showModal(html, opts={}){
+  const root=$("#modal-root");
+  root.innerHTML="";
+  const overlay=el(`<div class="overlay" role="dialog" aria-modal="true"><div class="modal">${html}</div></div>`);
+  root.appendChild(overlay);
+  const focusables=()=>overlay.querySelectorAll("button, a[href], input");
+  (focusables()[0]||overlay).focus();
+  overlay.addEventListener("keydown", e=>{
+    if(e.key==="Escape" && opts.dismissible!==false){ closeModal(); }
+    if(e.key==="Tab"){
+      const f=[...focusables()]; if(!f.length) return;
+      const i=f.indexOf(document.activeElement);
+      if(e.shiftKey && (i<=0)){ e.preventDefault(); f[f.length-1].focus(); }
+      else if(!e.shiftKey && i===f.length-1){ e.preventDefault(); f[0].focus(); }
+    }
+  });
+  return overlay;
+}
+function closeModal(){ $("#modal-root").innerHTML=""; }
+
+/* ------------------------------------------------------------------ */
+/* The Publisher's Disclaimer (first-run gate)                         */
+/* ------------------------------------------------------------------ */
+function showDisclaimer(){
+  const overlay = showModal(`
+    <p class="kicker">Before anything else</p>
+    <h2>Publisher's Disclaimer</h2>
+    <p class="smallprint">The Publisher, having circulated this Companion among four editors, reproduces their
+    reports below and declines responsibility for them, for the Companion, and for declining responsibility.</p>
+    <div class="editor-report"><b>Editor A:</b> Against. The author of record is a computer; the hero is a goat;
+    the subject is a novel of seven hundred pages that the public has had sixty years to read and largely hasn't.
+    Publication would embarrass the house and, worse, might succeed.</div>
+    <div class="editor-report"><b>Editor B:</b> For. It is presumptuous, derivative, and weirdly sincere — that is,
+    faithful to its original. Also it is short, which the original is not. We may charge for the difference.</div>
+    <div class="editor-report"><b>Editor C:</b> I resign. Not over this Companion exactly; over what reading the
+    novel twice has done to my certainty about who writes anything. (Attached: 'On the Impossibility of
+    Attachments,' unattached.)</div>
+    <div class="editor-report"><b>Editor D:</b> For, with the caution that the thing discusses the entire plot,
+    endings included, and that the novel it teaches contains sexual violence and racial caricature, which the
+    Companion addresses critically rather than omits. Let the Candidate be told at the gate. (Candidate: you have
+    now been told at the gate.)</div>
+    <p>If you wish to learn <cite>Giles Goat-Boy</cite> in the most <cite>Giles Goat-Boy</cite> way available, you must
+    matriculate. If not — failing is free, and the Dean o' Flunks is always hiring.</p>
+    <div class="btn-row">
+      <button class="btn" id="btn-matriculate">Matriculate</button>
+      <button class="btn secondary" id="btn-reject">Reject (flunk all this)</button>
+    </div>
+  `, {dismissible:false});
+  overlay.querySelector("#btn-matriculate").addEventListener("click", ()=>{
+    state.matriculated=true; save(); closeModal();
+    toast("Welcome to New Tammany College, " + studentName() + ". Your Assignment awaits.");
+    go("assignment");
+  });
+  overlay.querySelector("#btn-reject").addEventListener("click", ()=>{
+    overlay.querySelector(".modal").innerHTML = `
+      <h2>The Dean o' Flunks Commends You</h2>
+      <p>Wisely flunked, friend! Why pass, when failure asks nothing and delivers it promptly?
+      Stay; be comfortable; learn nothing. The hammock is eternal.</p>
+      <p class="smallprint">…and yet the Gate stands open. It always does. That is the trouble with Gates.</p>
+      <div class="btn-row"><button class="btn" id="btn-repent">Repent &amp; Matriculate</button></div>`;
+    overlay.querySelector("#btn-repent").addEventListener("click", ()=>{
+      state.matriculated=true; save(); closeModal();
+      toast("The Dean o' Flunks sighs. Welcome, Candidate.");
+      go("assignment");
+    });
+    overlay.querySelector("#btn-repent").focus();
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* Bray's unsolicited certifications                                   */
+/* ------------------------------------------------------------------ */
+function maybeBray(itemIdx){
+  const triggers={1:"first",4:"second"};
+  if(!(itemIdx in triggers) || state.brayShown.includes(itemIdx)) return;
+  state.brayShown.push(itemIdx); save();
+  const overlay=showModal(`
+    <p class="kicker">Unsolicited</p>
+    <h2>CERTIFICATION</h2>
+    <p><em>Know all studentdom by these presents</em> that the bearer, <strong>${escapeHtml(studentName())}</strong>,
+    is hereby Certified a Candidate for Graduation, Commencement, Tenure, Sainthood, and Whatever Else May Be Going,
+    on the grounds that Certification is my pleasure and costs me nothing.</p>
+    <p style="text-align:right;font-style:italic">— Harold Bray, Grand Tutor (self-styled), ${triggers[itemIdx]} appearance</p>
+    <p class="smallprint">A pedagogical note from WESCAC: this is what Bray does all novel long — passes everyone,
+    asks nothing, means nothing. Notice how pleasant it feels anyway. That feeling is the lesson; distrust it.</p>
+    <div class="btn-row">
+      <button class="btn secondary" id="bray-accept">Accept (it means nothing)</button>
+      <button class="btn danger" id="bray-unmask">Unmask him (it still means nothing)</button>
+    </div>
+  `);
+  overlay.querySelector("#bray-accept").addEventListener("click", ()=>{ closeModal(); toast("The diploma smells faintly odd. You file it anyway."); });
+  overlay.querySelector("#bray-unmask").addEventListener("click", ()=>{ closeModal(); toast("Beneath the mask: another mask. He flaps off belfry-ward, Certifying as he goes."); });
+}
+
+/* ------------------------------------------------------------------ */
+/* Views                                                               */
+/* ------------------------------------------------------------------ */
+const VIEWS = {
+  home(){ return `
+    <p class="kicker">Matriculation Office</p>
+    <h2>What This Is</h2>
+    <p>A study companion to <strong>John Barth's <cite>Giles Goat-Boy; or, The Revised New Syllabus</cite> (1966)</strong>:
+    the tale of a boy raised as a goat who sets out to become Grand Tutor — messiah — of a University that is the
+    universe, in a testament allegedly composed by a computer. It is one of the strangest and most ambitious American
+    novels of its century, and it is famously hard to start. This Companion exists to get you started, keep you
+    oriented, and hand you back to the book.</p>
+    <p>It teaches the novel <em>in the novel's own manner</em>: you matriculate; you work the Goat-Boy's seven-item
+    Assignment (each item is a lesson on one face of the book); your ID-card collects signatures; and when all seven
+    are signed you may descend into WESCAC's Belly to attempt the Finals. What happens after that is, as in the novel,
+    disputed.</p>
+    <div class="notice"><strong>Spoilers:</strong> total and unapologetic, endings included — Editor D insisted you be
+    told at the gate. If you want the plot innocent, read the novel first and use this after; it works either way.</div>
+    <div class="notice warn"><strong>Content advisory:</strong> the novel contains sexual violence and racial caricature
+    along with its genius; Module 7 addresses both critically rather than pretending otherwise.</div>
+    <h3>How to proceed</h3>
+    <p>Open <strong>The Assignment</strong> and take the items in order (they build), or wander — the Turnstile does not
+    judge. Consult <strong>The Catalogue</strong> whenever a campus term baffles you. Your progress lives in this
+    browser's storage, on your ID-card, which is more than the novel's hero could say for his.</p>
+    <details>
+      <summary>Cover-letter to the Editors and Publisher (on the provenance of this Companion)</summary>
+      <p>Gentles: the repository, when we found it, contained a single file, <code>index.html</code>, and the file was
+      blank — one line, no characters. A young man who signed himself <em>Stoker Giles</em> assures us this blankness
+      was not an oversight but a first draft of everything, awaiting revision. We have revised it. Whether what
+      follows is the file's true content or only ours, we decline, in the tradition, to say. — The Eds.</p>
+    </details>
+    <div class="btn-row">
+      <button class="btn" data-go="assignment">Open the Assignment</button>
+      <button class="btn secondary" data-go="catalogue">Browse the Catalogue</button>
+    </div>
+    <p class="smallprint">To begin again from nothing (the file's original state), you may
+    <button class="btn danger" id="btn-reset" style="font-size:.85rem;padding:.3em .8em">Rematriculate</button> —
+    this erases your signatures and your name. The Dean o' Flunks approves.</p>
+  `;},
+
+  assignment(){
+    const items = MODULES.map((m,i)=>`
+      <li class="${state.signed[i]?"signed":""}">
+        <span class="num" aria-hidden="true">${i+1}</span>
+        <span class="grow"><strong>${m.title}</strong><br><span class="smallprint">${m.subtitle}</span></span>
+        ${state.signed[i]?`<span class="stamp">✓ signed</span>`:""}
+        <button class="btn secondary" data-module="${i}">${state.signed[i]?"Revisit":"Begin"}</button>
+      </li>`).join("");
+    return `
+      <p class="kicker">From WESCAC, for the Candidate ${escapeHtml(studentName())}</p>
+      <h2>The Assignment</h2>
+      <blockquote>To Be Done At Once, In No Time</blockquote>
+      <p>Seven items, as the Goat-Boy received them. Each is a lesson on one face of the novel; each ends with a
+      single question, and a correct answer signs that item on your ID-card. Sign all seven and the way to the
+      <strong>Finals</strong> opens. George worked the list three times under three doctrines before it came right;
+      you are permitted the same patience.</p>
+      <ol class="module-list" style="list-style:none">${items}</ol>
+      <p class="smallprint">${allSigned()
+        ? "All seven items are signed. The Belly is open to you, Candidate. (See: The Finals.)"
+        : `Signed: ${signedCount()} of 7. The Finals remain sealed until the card is full.`}</p>
+    `;
+  },
+
+  module(i){
+    const m=MODULES[i];
+    const done=state.signed[i];
+    /* display options in random order so the answer key can't be memorized positionally;
+       each radio carries its original index, so grading is order-independent */
+    const opts=shuffled(m.quiz.options.length).map(j=>`
+      <label><input type="radio" name="q" value="${j}"> ${escapeHtml(m.quiz.options[j])}</label>`).join("");
+    return `
+      <p class="kicker">Assignment item the ${["first","second","third","fourth","fifth","sixth","seventh"][i]}</p>
+      <h2>${i+1}. ${m.title}</h2>
+      <p><em>${m.subtitle}</em></p>
+      <div class="notice">${m.meaning}</div>
+      ${m.lesson}
+      <p class="chips" aria-label="Catalogue cross-references">${m.refs.map(r=>`<span>${escapeHtml(r)}</span>`).join("")}</p>
+      <fieldset class="quiz">
+        <legend>Sign this item</legend>
+        ${done?`<p class="verdict pass">✓ Already signed. (You may answer again for the pleasure of it.)</p>`:""}
+        <p><strong>${escapeHtml(m.quiz.q)}</strong></p>
+        ${opts}
+        <div class="btn-row" style="margin:.6rem 0 0">
+          <button class="btn" id="quiz-submit">Submit to WESCAC</button>
+        </div>
+        <p class="verdict" id="quiz-verdict" aria-live="polite"></p>
+      </fieldset>
+      <div class="btn-row">
+        <button class="btn secondary" data-go="assignment">← Back to the Assignment</button>
+        ${i<6?`<button class="btn secondary" data-module="${i+1}">Next item →</button>`:""}
+      </div>
+    `;
+  },
+
+  catalogue(){
+    const rows = CATALOGUE.concat(
+      state.bleats>=3 ? [["Capra hircus","The domestic goat","you, possibly, at heart"]] : []
+    ).map(([t,c,w])=>`<tr><td><strong>${escapeHtml(t)}</strong></td><td>${escapeHtml(c)}</td><td>${escapeHtml(w)}</td></tr>`).join("");
+    return `
+      <p class="kicker">The Library · Sub-Archives</p>
+      <h2>The Catalogue</h2>
+      <p>The campus idiom, term by term. The left column is the novel's word; the middle, what it denotes on campus;
+      the right, its echo in the world you (allegedly) come from. The mapping is the joke — and the joke is serious.</p>
+      <label for="cat-filter" class="smallprint">Filter the Catalogue:</label>
+      <input id="cat-filter" style="width:100%;font-family:var(--serif);font-size:1rem;padding:.4em .6em;border:1px solid var(--rule);background:#fffdf6" placeholder="e.g. WESCAC, goat, Bray…">
+      <table>
+        <thead><tr><th>Term</th><th>On campus</th><th>In your world</th></tr></thead>
+        <tbody id="cat-body">${rows}</tbody>
+      </table>
+    `;
+  },
+
+  finals(){
+    if(!allSigned()){
+      return `
+        <p class="kicker">Below Tower Hall</p>
+        <h2>The Finals</h2>
+        <p>A riveted hatch, goat-warm to the touch, and stenciled on it:</p>
+        <blockquote>NO CANDIDATE DESCENDS WHOSE CARD WANTS SIGNATURES.<br>SIGNED: ${signedCount()} OF 7. WESCAC IS PATIENT. WESCAC IS NOT THAT PATIENT.</blockquote>
+        <p>Complete the seven items of <strong>The Assignment</strong> and the hatch will know.</p>
+        <div class="btn-row"><button class="btn" data-go="assignment">To the Assignment</button></div>`;
+    }
+    return `
+      <p class="kicker">Below Tower Hall</p>
+      <h2>The Finals</h2>
+      <p>The hatch stands open. Below: the <strong>Belly of WESCAC</strong>, where Candidates are examined by the only
+      examiner with no outside. The questions are few and capitalized. The last one cannot be answered the way the
+      machine appears to want — remember Module 6, and what the third answer was <em>not</em>.</p>
+      <div class="notice warn smallprint">The Belly is dark, monospaced, and mildly dramatic. No actual EATing occurs.
+      ${state.finalsPassed?"You have passed before; descend again freely, for the pleasure of the dark.":""}</div>
+      <div class="btn-row"><button class="btn danger" id="btn-descend">Descend</button></div>
+    `;
+  },
+
+  posttape(){
+    if(!state.finalsPassed){
+      return `
+        <p class="kicker">Restricted reel</p>
+        <h2>Posttape</h2>
+        <p>The Sub-Archivist regrets: this reel is released only to those who have been through the Belly.
+        Pass the <strong>Finals</strong> and return.</p>`;
+    }
+    const presented = state.idPresented;
+    return `
+      <p class="kicker">The last reel${presented?"":" · one formality remains"}</p>
+      <h2>Posttape</h2>
+      <p>So, Candidate: passed, and (the stamp was clear) failed, and passed. You have, then, what this Companion can
+      give — which the Companion is required, on its last reel, to appraise honestly: <strong>a map is not a
+      territory, a syllabus is not a Tutor, and a companion is, at its smiling worst, a Bray</strong> — certifying
+      cheaply what only the long book itself can teach dearly. The difference between knowing the three answers and
+      having read them happen to George is the difference between a diploma and an education; the campus is littered
+      with the first.</p>
+      <p>Therefore the Posttape's one commandment: <strong>close this tape and open the novel.</strong> Seven hundred
+      pages, two volumes, reels uncounted; bring patience, and forgive it its decade where you can. Read it twice —
+      once for the joke, once for the grief — and when studentdom asks you what it was like, answer as the third
+      answer answers: not with either button.</p>
+      ${presented ? `
+        <p>Your ID-card is signed, presented, accepted. There is nothing further. There was never going to be a
+        ceremony; the ceremony was the reading. Go in Passage, Candidate — and mind the Gate on your way out, it
+        sticks.</p>
+      ` : `
+        <p>One formality remains. Item the seventh, in full: <em>present your ID-card, appropriately signed, to the
+        proper authority.</em> Your card is signed. The authority question the novel left with the reader, and this
+        Companion can do no better. Present it, then — to the only authority in the room.</p>
+        <div class="btn-row"><button class="btn" id="btn-present">Present ID-card to the Proper Authority</button></div>
+      `}
+      <hr>
+      <h3>Postscript to the Posttape</h3>
+      <p class="smallprint">The Editors doubt the authenticity of the foregoing Posttape. Its tone is suspiciously
+      kind, and the original George, we are advised, was never once heard to apologize for a length.</p>
+      <h3>Footnote to the Postscript to the Posttape</h3>
+      <p class="smallprint">The Editors are themselves an invention of this Companion. The one verifiable fact in the
+      whole apparatus is this: the file you are reading was, when discovered, <strong>blank</strong> — one line, no
+      characters. Whether what it now contains is a revision, a restoration, or a usurpation, the Sub-Archivist
+      declines to say. He declines almost everything. —Ed.</p>
+      ${certificateHtml()}
+      <div class="btn-row"><button class="btn secondary" id="btn-print">Print the Certification</button></div>
+    `;
+  }
+};
+
+function certificateHtml(){
+  return `
+  <div class="certificate" role="img" aria-label="Certificate of Candidacy">
+    <h3>New Tammany College</h3>
+    <p style="margin:.2rem 0">By authority of nobody, and by these presents, WESCAC certifies that</p>
+    <p class="name">${escapeHtml(studentName())}</p>
+    <p style="margin:.4rem 0">has completed the <strong>Revised New Syllabus Companion</strong>, descended into the
+    Belly, declined both buttons, and is hereby declared</p>
+    <p style="font-variant:small-caps;font-size:1.2rem;margin:.3rem 0">Candidate for Graduation</p>
+    <p class="passfail">PASS ALL FAIL ALL</p>
+    <div class="sigs">
+      <span class="sig">WESCAC, Tutor of Record</span>
+      <span class="sig">H. Bray, G.T. (unsolicited)</span>
+      <span class="sig">The Proper Authority (you)</span>
+    </div>
+    <p class="smallprint" style="margin-top:1rem">Valid everywhere the University extends. Void where prohibited; prohibited nowhere; therefore valid. Confers nothing but what the reading conferred.</p>
+  </div>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* The Belly (Finals engine)                                           */
+/* ------------------------------------------------------------------ */
+let belly=null;
+
+function typeOut(elScreen, text, then){
+  if(REDUCED){ elScreen.textContent += text; if(then) then(); return; }
+  let i=0;
+  (function tick(){
+    if(i<text.length){
+      elScreen.textContent += text[i++];
+      setTimeout(tick, text[i-2]==="\n" ? 140 : 18);
+    } else if(then){ then(); }
+  })();
+}
+
+function startBelly(){
+  document.body.classList.add("belly");
+  belly={ q:0, errors:0, both:new Set() };
+  const main=$("#main");
+  main.innerHTML=`
+    <div class="belly-screen" id="belly-screen"></div>
+    <div id="belly-controls" class="btn-row"></div>
+  `;
+  main.focus();
+  typeOut($("#belly-screen"),
+`> LIFT DESCENDING . . . . . .
+> CHAMBER: BELLY. LIGHT: NONE. EXITS: NONE LISTED.
+> CANDIDATE: ${studentName().toUpperCase()}
+> THIS IS THE EXAMINATION CALLED FINALS.
+> ANSWER WHAT IS ASKED.\n\n`, askBelly);
+}
+
+function askBelly(){
+  const controls=$("#belly-controls");
+  controls.innerHTML="";
+  if(belly.q < FINALS.length){
+    const item=FINALS[belly.q];
+    typeOut($("#belly-screen"), `> Q${belly.q+1}. ${item.q}\n`, ()=>{
+      shuffled(item.options.length).forEach((j,pos)=>{
+        const letter=String.fromCharCode(65+pos);
+        const b=el(`<button class="btn quizopt">${letter}. ${escapeHtml(item.options[j])}</button>`);
+        b.addEventListener("click", ()=>{
+          controls.innerHTML="";
+          if(j===item.answer){
+            typeOut($("#belly-screen"), `> ${letter}. — CORRECT. CONTINUE.\n\n`, ()=>{ belly.q++; askBelly(); });
+          } else {
+            belly.errors++;
+            typeOut($("#belly-screen"), `> ${letter}. — FLUNKED. THE BELLY IS PATIENT. AGAIN:\n\n`, askBelly);
+          }
+        });
+        controls.appendChild(b);
+      });
+      controls.firstElementChild.focus();
+    });
+  } else {
+    finalQuestion();
+  }
+}
+
+function finalQuestion(){
+  const controls=$("#belly-controls");
+  controls.innerHTML="";
+  typeOut($("#belly-screen"),
+`> FINAL QUESTION.
+> CANDIDATE: ARE YOU PASSED, OR ARE YOU FAILED?
+> SELECT AND COMMIT.\n`, ()=>{
+    const mk=(label,key)=>{
+      const b=el(`<button class="btn" aria-pressed="false" style="font-size:1.3rem;padding:.8em 1.6em">${label}</button>`);
+      b.addEventListener("click", ()=>{
+        if(belly.both.has(key)) belly.both.delete(key); else belly.both.add(key);
+        b.setAttribute("aria-pressed", belly.both.has(key) ? "true":"false");
+      });
+      return b;
+    };
+    const bp=mk("PASSED","p"), bf=mk("FAILED","f");
+    const commit=el(`<button class="btn" style="border-style:dashed">COMMIT ANSWER</button>`);
+    commit.addEventListener("click", ()=>{
+      const both = belly.both.has("p") && belly.both.has("f");
+      if(both){
+        controls.innerHTML="";
+        typeOut($("#belly-screen"),
+`> . . .
+> BOTH. NEITHER. THE BUTTONS ARE TOOLS, NOT TRUTHS.
+> IN THE DARK, AT LAST, A CANDIDATE WHO READ THE BOOK.
+> VERDICT: CANDIDATE PASSED (FAILED) (PASSED).
+> COMMENCEMENT GATE IS WHEREVER YOU ARE STANDING.
+> ASCEND.\n`, ()=>{
+          const out=el(`<button class="btn">ASCEND TO THE POSTTAPE</button>`);
+          out.addEventListener("click", ()=>{
+            state.finalsPassed=true; save();
+            document.body.classList.remove("belly");
+            toast("CANDIDATE PASSED (FAILED) (PASSED). The Posttape is unsealed.");
+            go("posttape");
+          });
+          controls.appendChild(out); out.focus();
+        });
+      } else if(belly.both.size===1){
+        belly.both.clear();
+        bp.setAttribute("aria-pressed","false"); bf.setAttribute("aria-pressed","false");
+        typeOut($("#belly-screen"),
+`> ONE BUTTON ONLY? FLUNKED, BILLY.
+> HINT, AS FROM MODULE SIX: THE THIRD ANSWER WAS NOT EITHER BUTTON.
+> THE BELLY PERMITS WHAT EXAMINERS FORBID: SELECTING MORE THAN YOU WERE OFFERED.\n`);
+      } else {
+        typeOut($("#belly-screen"), `> SILENCE IS THE SAKHYAN'S ANSWER. YOU ARE NOT THE SAKHYAN. SELECT.\n`);
+      }
+    });
+    const flee=el(`<button class="btn" style="opacity:.7">FLEE (ASCEND UNEXAMINED)</button>`);
+    flee.addEventListener("click", ()=>{
+      document.body.classList.remove("belly");
+      toast("You ascend unexamined. The hatch does not judge. The hatch absolutely judges.");
+      go("finals");
+    });
+    controls.append(bp,bf,commit,flee);
+    bp.focus();
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* Router & wiring                                                     */
+/* ------------------------------------------------------------------ */
+const TABS=[
+  ["home","Matriculation"],
+  ["assignment","The Assignment"],
+  ["catalogue","The Catalogue"],
+  ["finals","The Finals"],
+  ["posttape","Posttape"]
+];
+let current={view:"home", arg:null};
+
+function go(view, arg=null){
+  current={view,arg};
+  document.body.classList.remove("belly");
+  location.hash = view==="module" ? `#/module/${arg+1}` : `#/${view}`;
+  render();
+}
+
+function render(){
+  const main=$("#main");
+  const v=current.view;
+  main.innerHTML = v==="module" ? VIEWS.module(current.arg) : VIEWS[v]();
+  renderTabs(); renderIdCard();
+  /* wire view-local controls */
+  main.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+  main.querySelectorAll("[data-module]").forEach(b=>b.addEventListener("click",()=>go("module", +b.dataset.module)));
+  const reset=$("#btn-reset");
+  if(reset) reset.addEventListener("click", ()=>{
+    if(confirm("Erase all signatures, your name, and your pass? The file returns to (near) blankness.")){
+      state={...defaultState, matriculated:true}; save(); render();
+      toast("Rematriculated. The Syllabus, like the file, begins again from nothing.");
+    }
+  });
+  const submit=$("#quiz-submit");
+  if(submit) submit.addEventListener("click", ()=>{
+    const i=current.arg, m=MODULES[i];
+    const sel=main.querySelector("input[name=q]:checked");
+    const verdict=$("#quiz-verdict");
+    if(!sel){ verdict.className="verdict flunk"; verdict.textContent="WESCAC observes: no answer is also an answer, but not today. Select one."; return; }
+    if(+sel.value===m.quiz.answer){
+      const newly=!state.signed[i];
+      state.signed[i]=true; save();
+      verdict.className="verdict pass";
+      verdict.textContent="✓ Passèd. " + m.quiz.explain;
+      renderIdCard(); renderTabs();
+      if(newly){
+        toast(`Item the ${["first","second","third","fourth","fifth","sixth","seventh"][i]} is signed (${signedCount()}/7).`);
+        if(allSigned()) toast("All seven signed. The hatch below Tower Hall has unsealed. (See: The Finals.)", 5200);
+        maybeBray(i);
+      }
+    } else {
+      verdict.className="verdict flunk";
+      verdict.textContent="✗ Flunked — but the Belly is patient, and so is this fieldset. Reconsider; the lesson above contains the answer. (Hint: " + m.quiz.explain.split(".")[0] + ".)";
+    }
+  });
+  const filt=$("#cat-filter");
+  if(filt) filt.addEventListener("input", ()=>{
+    const q=filt.value.toLowerCase();
+    $("#cat-body").querySelectorAll("tr").forEach(tr=>{
+      tr.style.display = tr.textContent.toLowerCase().includes(q) ? "" : "none";
+    });
+  });
+  const descend=$("#btn-descend");
+  if(descend) descend.addEventListener("click", startBelly);
+  const present=$("#btn-present");
+  if(present) present.addEventListener("click", ()=>{
+    state.idPresented=true; save(); render();
+    toast("The Proper Authority (you) accepts the card, and finds the signature appropriate.");
+  });
+  const print=$("#btn-print");
+  if(print) print.addEventListener("click", ()=>window.print());
+}
+
+function renderTabs(){
+  const nav=$("#tabs"); nav.innerHTML="";
+  TABS.forEach(([id,label])=>{
+    const locked = (id==="finals" && !allSigned()) || (id==="posttape" && !state.finalsPassed);
+    const b=el(`<button ${current.view===id?'aria-current="page"':""} class="${locked?"locked":""}">${label}${locked?" 🔒":""}</button>`);
+    b.addEventListener("click", ()=>go(id));
+    nav.appendChild(b);
+  });
+}
+
+function renderIdCard(){
+  const list=$("#idcard-items"); list.innerHTML="";
+  MODULES.forEach((m,i)=>{
+    list.appendChild(el(`<li class="${state.signed[i]?"signed":""}">${m.title} ${state.signed[i]?"— ✓":"— ____"}</li>`));
+  });
+  $("#idcard-stamp").innerHTML =
+    state.idPresented ? `<span class="bigstamp">Appropriately Signed · Presented · Accepted</span>` :
+    state.finalsPassed ? `<span class="bigstamp">Passed (Failed) (Passed)</span>` :
+    allSigned() ? `<span class="bigstamp">Cleared for the Belly</span>` : "";
+}
+
+/* ID-card drawer, name, crest, clock, motto */
+$("#idcard-toggle").addEventListener("click", ()=>{
+  const card=$("#idcard");
+  const open=card.classList.toggle("open");
+  $("#idcard-toggle").setAttribute("aria-expanded", open?"true":"false");
+});
+const nameInput=$("#student-name");
+nameInput.value=state.name;
+nameInput.addEventListener("input", ()=>{ state.name=nameInput.value; save(); });
+
+$("#crest").addEventListener("click", ()=>{
+  state.bleats++; save();
+  const bleats=["Behhh.","BEHHH!","Bah. (A third bleat! The Catalogue gains an entry: Capra hircus.)","Behhh?","The goat regards you with rectangular patience."];
+  toast(bleats[Math.min(state.bleats-1,bleats.length-1)] || "Behhh.");
+});
+
+(function clock(){
+  const t=$("#tick");
+  t.title="The tock is silent.";
+  if(REDUCED){ t.textContent="TICK (the tock is silent)"; return; }
+  let dot=false;
+  setInterval(()=>{ dot=!dot; t.textContent = dot ? "TICK." : "TICK"; }, 1000);
+})();
+$("#motto").textContent = " · " + MOTTOES[Math.floor(Math.random()*MOTTOES.length)];
+
+/* hash routing on load & navigation */
+function fromHash(){
+  const h=location.hash.replace(/^#\//,"");
+  const mod=h.match(/^module\/([1-7])$/);
+  if(mod) return {view:"module", arg:+mod[1]-1};
+  return {view: TABS.some(([id])=>id===h) ? h : "home", arg:null};
+}
+window.addEventListener("hashchange", ()=>{ current=fromHash(); document.body.classList.remove("belly"); render(); });
+
+current=fromHash();
+render();
+if(!state.matriculated) showDisclaimer();
+</script>
+</body>
+</html>
